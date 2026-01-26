@@ -5,6 +5,7 @@ description = "A demo for OceanBase multi-model search"
 authors = ["shanhaikang.shk <shanhaikang.shk@oceanbase.com>"]
 license = "Apache-2.0"
 readme = "README.md"
+packages = [{include = "obmms", from = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
