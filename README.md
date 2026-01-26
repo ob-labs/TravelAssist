@@ -30,13 +30,13 @@ OB_DB_SSL_CA_PATH="optional-ssl-ca-path"
 
 5. Visit https://www.kaggle.com/datasets/audreyhengruizhang/china-city-attraction-details to obtain the dataset and store it in the manualy created `citydata` directory under this project directory.
 
-6. (Optional but Recomanded) Create an Python3.10 environment with [miniconda](https://www.anaconda.com/docs/getting-started/miniconda/install).
+6. (Optional but Recommended) Install [uv](https://github.com/astral-sh/uv) for fast Python package management:
 
 ```bash
-conda create -n obmms python=3.10 && conda activate obmms
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-7. Install this python project with `poetry install`.
+7. Install this python project with `uv sync`.
 
 8. Import datas into OceanBase with following command:
 
