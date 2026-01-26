@@ -38,7 +38,7 @@ class ObMMSTool(Tool):
         **kwargs,
     ):
         self.table_name = table_name
-        ssl_ca_path = os.getenv("OB_DB_SSL_CA_PATH")
+        ssl_ca_path = os.getenv("DB_SSL_CA_PATH")
         if ssl_ca_path:
             connect_args = {
                 "ssl": {
@@ -46,10 +46,13 @@ class ObMMSTool(Tool):
                     "check_hostname": False,
                 }
             }
-        uri = os.getenv("OB_URL", "127.0.0.1:2881")
-        user = os.getenv("OB_USER", "root@test")
-        db_name = os.getenv("OB_DB_NAME", "test")
-        pwd = os.getenv("OB_PWD", "")
+        # Support both new DB_* and legacy OB_* environment variables
+        db_host = os.getenv("DB_HOST", os.getenv("OB_URL", "127.0.0.1").split(":")[0])
+        db_port = os.getenv("DB_PORT", os.getenv("OB_URL", "127.0.0.1:2881").split(":")[-1])
+        uri = f"{db_host}:{db_port}"
+        user = os.getenv("DB_USER", os.getenv("OB_USER", "root@test"))
+        db_name = os.getenv("DB_NAME", os.getenv("OB_DB_NAME", "test"))
+        pwd = os.getenv("DB_PASSWORD", os.getenv("OB_PWD", ""))
         if ssl_ca_path:
             self.client = ObVecClient(
                 uri=uri,
