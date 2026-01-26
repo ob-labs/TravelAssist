@@ -2,50 +2,99 @@
 
 ## Setup
 
+### Option 1: One-Click Docker Setup (Recommended)
+
+1. (Optional but Recommended) Install [uv](https://github.com/astral-sh/uv) for fast Python package management:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+2. Create `.env` file based on `.env.example`:
+
+```bash
+cp .env.example .env
+```
+
+3. Edit `.env` file to configure database and API keys:
+
+```bash
+vim .env
+```
+
+Key configurations:
+- Set `REUSE_CURRENT_DB=false` to automatically start a Docker database
+- Set `DB_STORE=seekdb` or `DB_STORE=oceanbase` to choose database type
+- Configure `DASHSCOPE_API_KEY` for model service
+- Configure `AMAP_API_KEY` for map service
+
+4. Run the initialization script to start Docker database:
+
+```bash
+bash scripts/init_docker.sh
+```
+
+This script will:
+- Automatically download and start SeekDB or OceanBase Docker container
+- Wait for database to be ready
+- Verify database connection
+
+### Option 2: Manual Docker Setup
+
 1. Deploy a standalone OceanBase server with docker:
 
 ```bash
-docker run --name=ob433 -e MODE=mini -e OB_MEMORY_LIMIT=8G -e OB_DATAFILE_SIZE=10G -e OB_CLUSTER_NAME=ailab2024_dbgpt -e OB_SERVER_IP=127.0.0.1 -p 2881:2881 -d quay.io/oceanbase/oceanbase-ce:4.3.3.1-101000012024102216
+# For SeekDB (lightweight)
+docker run --name seekdb -e ROOT_PASSWORD=your-password -d -p 2881:2881 -p 2886:2886 oceanbase/seekdb
+
+# Or for OceanBase CE (full features)
+docker run --name=oceanbase-ce -e OB_TENANT_PASSWORD=your-password -e datafile_size=10G -p 2881:2881 -d oceanbase/oceanbase-ce
 ```
 
 You can also use a [free OceanBase cloud instance](https://www.oceanbase.com/free-trial)
 
-2. Create `.env` file in this project directory and set configurations.
+2. Create `.env` file in this project directory and set configurations:
 
 ```bash
 vim .env
 ```
 
 ```plain
-OB_URL="your-ob-url"
-OB_USER="your-ob-user"
-OB_DB_NAME="your-db-name"
-OB_PWD="your-pwd"
-OB_DB_SSL_CA_PATH="optional-ssl-ca-path"
+# Database configuration
+REUSE_CURRENT_DB=true
+DB_STORE=seekdb
+DB_HOST="127.0.0.1"
+DB_PORT="2881"
+DB_USER="root"
+DB_PASSWORD="your-password"
+DB_NAME="test"
+DB_SSL_CA_PATH=""
 ```
 
-3. Visit https://www.aliyun.com/product/bailian to obtain the model service API key and save it in the `DASHSCOPE_API_KEY` system variable.
+### Common Steps for Both Options
 
-4. Visit https://lbs.amap.com/ to obtain the map service API key and save it in the `AMAP_API_KEY` system variable.
+3. Obtain API keys and configure in `.env`:
+   - Visit https://www.aliyun.com/product/bailian to get `DASHSCOPE_API_KEY` for model service
+   - Visit https://lbs.amap.com/ to get `AMAP_API_KEY` for map service
 
-5. Visit https://www.kaggle.com/datasets/audreyhengruizhang/china-city-attraction-details to obtain the dataset and store it in the manualy created `citydata` directory under this project directory.
+4. Obtain the dataset:
+   - Visit https://www.kaggle.com/datasets/audreyhengruizhang/china-city-attraction-details
+   - Download and store it in a manually created `citydata` directory under this project directory
 
-6. (Optional but Recommended) Install [uv](https://github.com/astral-sh/uv) for fast Python package management:
+5. Install Python dependencies:
 
 ```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
+uv sync
 ```
 
-7. Install this python project with `uv sync`.
-
-8. Import datas into OceanBase with following command:
+6. Import data into database:
 
 ```bash
-python ./obmms/data/attraction_data_preprocessor.py
+python src/obmms/data/attraction_data_preprocessor.py
 ```
 
-9. Start chat server with following command:
+7. Start the chat server:
 
 ```bash
-streamlit run ./ui.py
+streamlit run src/ui.py
 ```

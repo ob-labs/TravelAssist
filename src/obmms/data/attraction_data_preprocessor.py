@@ -74,15 +74,18 @@ def parse_season_str(season_str: str) -> int:
 
 
 def create_obmms_table():
-    ssl_ca_path = os.getenv("OB_DB_SSL_CA_PATH")
+    ssl_ca_path = os.getenv("DB_SSL_CA_PATH")
     if ssl_ca_path is not None:
         connect_args = {
             "ssl_ca": ssl_ca_path,
         }
-    uri = os.getenv("OB_URL", "127.0.0.1:2881")
-    user = os.getenv("OB_USER", "root@test")
-    db_name = os.getenv("OB_DB_NAME", "test")
-    pwd = os.getenv("OB_PWD", "")
+    # Support both new DB_* and legacy OB_* environment variables
+    db_host = os.getenv("DB_HOST", os.getenv("OB_URL", "127.0.0.1").split(":")[0])
+    db_port = os.getenv("DB_PORT", os.getenv("OB_URL", "127.0.0.1:2881").split(":")[-1])
+    uri = f"{db_host}:{db_port}"
+    user = os.getenv("DB_USER", os.getenv("OB_USER", "root@test"))
+    db_name = os.getenv("DB_NAME", os.getenv("OB_DB_NAME", "test"))
+    pwd = os.getenv("DB_PASSWORD", os.getenv("OB_PWD", ""))
     if ssl_ca_path:
         client = ObVecClient(
             uri=uri,
@@ -137,15 +140,18 @@ def create_obmms_table():
 
 
 def load_csv(csv_path: str, delete_after_loaded: bool = False):
-    ssl_ca_path = os.getenv("OB_DB_SSL_CA_PATH")
+    ssl_ca_path = os.getenv("DB_SSL_CA_PATH")
     if ssl_ca_path is not None:
         connect_args = {
             "ssl_ca": ssl_ca_path,
         }
-    uri = os.getenv("OB_URL", "127.0.0.1:2881")
-    user = os.getenv("OB_USER", "root@test")
-    db_name = os.getenv("OB_DB_NAME", "test")
-    pwd = os.getenv("OB_PWD", "")
+    # Support both new DB_* and legacy OB_* environment variables
+    db_host = os.getenv("DB_HOST", os.getenv("OB_URL", "127.0.0.1").split(":")[0])
+    db_port = os.getenv("DB_PORT", os.getenv("OB_URL", "127.0.0.1:2881").split(":")[-1])
+    uri = f"{db_host}:{db_port}"
+    user = os.getenv("DB_USER", os.getenv("OB_USER", "root@test"))
+    db_name = os.getenv("DB_NAME", os.getenv("OB_DB_NAME", "test"))
+    pwd = os.getenv("DB_PASSWORD", os.getenv("OB_PWD", ""))
     if ssl_ca_path:
         client = ObVecClient(
             uri=uri,
