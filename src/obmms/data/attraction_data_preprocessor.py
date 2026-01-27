@@ -11,7 +11,7 @@ import dotenv
 import traceback
 
 from pyobvector import *
-from sqlalchemy import Column, Integer, String, JSON, Index
+from sqlalchemy import Column, Integer, String, JSON, Index, text
 from sqlalchemy.dialects.mysql import LONGTEXT
 from tqdm import tqdm
 import dashscope
@@ -108,7 +108,7 @@ def create_obmms_table():
         Column("id", Integer, primary_key=True, autoincrement=True),
         Column("attraction_name", String(1024), nullable=False),
         Column("address_text", LONGTEXT, nullable=False),
-        Column("address", POINT(srid=4326), nullable=False),
+        Column("address", POINT(), nullable=False), 
         Column("intro", LONGTEXT, nullable=False),
         Column("intro_vec", VECTOR(1024), nullable=False),
         Column("img_url", String(1024), nullable=False),
@@ -188,7 +188,7 @@ def load_csv(csv_path: str, delete_after_loaded: bool = False):
         data = {
             "attraction_name": record["名字"],
             "address_text": record["地址"],
-            "address": ST_GeomFromText(lat_long, 4326),
+            "address": ST_GeomFromText(lat_long),
             "intro": record["介绍"],
             "intro_vec": embedding([record["介绍"]])[0],
             "img_url": record["图片链接"],
