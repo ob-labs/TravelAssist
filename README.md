@@ -1,8 +1,24 @@
 # OceanBase Multi-Model Search Demo
 
-## Setup
+[中文版](./README_zh.md)
 
-### Option 1: One-Click Docker Setup (Recommended)
+## Quick Start (Docker Compose)
+
+1. Create `.env` file in `docker` directory and configure API keys:
+```bash
+cd docker
+cp .env.example .env
+vim .env # Set your DASHSCOPE_API_KEY and AMAP_API_KEY.
+```
+2. Start services:
+```bash
+docker compose up -d
+```
+3. Open http://localhost:8501 and follow the sidebar to upload and load the dataset.
+
+## Alternative Setup Methods
+
+### Option 1: One-Click Docker Setup
 
 1. (Optional but Recommended) Install [uv](https://github.com/astral-sh/uv) for fast Python package management:
 
@@ -87,13 +103,7 @@ DB_SSL_CA_PATH=""
 uv sync
 ```
 
-6. Import data into database:
-
-```bash
-python src/obmms/data/attraction_data_preprocessor.py
-```
-
-7. Start the chat server:
+6. Start the chat server:
 
 ```bash
 streamlit run src/ui.py
