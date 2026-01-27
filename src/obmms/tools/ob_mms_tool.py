@@ -173,7 +173,7 @@ class ObMMSTool(Tool):
         where_clause = [
             and_(
                 text(f"score >= {score} AND season & {season} = {season}"),
-                st_dwithin(table.c["address"], ST_GeomFromText(departure, 4326), distance),
+                st_dwithin(table.c["address"], ST_GeomFromText(departure), distance),
             ),
         ]
 
