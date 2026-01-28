@@ -172,6 +172,12 @@ log/
 logs/*.log
 nohup.out
 
+# Docker
+docker/volumes/seekdb
+docker/volumes/oceanbase
+docker/volumes/logs
+docker/.env
+
 # Credentials and secrets
 *.pem
 *.key
