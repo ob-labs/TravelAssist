@@ -167,7 +167,7 @@ Desktop.ini
 # Project-specific
 citydata/
 citydata.zip
-data/
+/data/
 
 __MACOSX/
 log/
