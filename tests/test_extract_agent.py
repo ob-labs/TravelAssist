@@ -1,8 +1,9 @@
 import unittest
-from obmms import ExtractAgent
-import logging
 
-logger = logging.getLogger(__name__)
+from src.agents import ExtractAgent
+from src.common.logger import get_logger
+
+logger = get_logger(__name__)
 
 
 class ExtractAgentTest(unittest.TestCase):

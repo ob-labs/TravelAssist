@@ -24,4 +24,4 @@ cd "$PROJECT_ROOT"
 
 # Start the streamlit application
 echo "Launching Streamlit UI..."
-uv run streamlit run --server.runOnSave false src/ui.py
+uv run streamlit run --server.runOnSave false src/frontend/ui.py

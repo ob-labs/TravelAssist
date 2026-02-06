@@ -4,6 +4,7 @@ Logger configuration module.
 Provides centralized logging configuration with both console and file output.
 All loggers in the application should use this module for consistent logging.
 """
+
 import logging
 import os
 import sys
@@ -33,7 +34,7 @@ def setup_logger(name: Optional[str] = None, log_level: int = logging.INFO) -> l
     # Create formatter with standard format
     # Format: [MODULE:LINE - YYYY-MM-DD HH:MM:SS,mmm - LEVEL] - MESSAGE
     formatter = logging.Formatter(
-        fmt='[%(name)s:%(lineno)d %(asctime)s %(levelname)s] %(message)s',
+        fmt='[%(filename)s:%(lineno)d %(asctime)s %(levelname)s] %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S'
     )
     

@@ -18,7 +18,9 @@ docker compose up -d
 
 ## Alternative Setup Methods
 
-### Option 1: One-Click Docker Setup
+## Setup
+
+### Option 1: One-Click Docker Setup (Recommended)
 
 1. (Optional but Recommended) Install [uv](https://github.com/astral-sh/uv) for fast Python package management:
 
@@ -61,7 +63,7 @@ This script will:
 
 ```bash
 # For SeekDB (lightweight)
-docker run --name seekdb -e -d -p 2881:2881 -p 2886:2886 oceanbase/seekdb
+docker run --name seekdb -e ROOT_PASSWORD=your-password -d -p 2881:2881 -p 2886:2886 oceanbase/seekdb
 
 # Or for OceanBase CE (full features)
 docker run --name=oceanbase-ce -e OB_TENANT_PASSWORD=your-password -e datafile_size=10G -p 2881:2881 -d oceanbase/oceanbase-ce
@@ -103,8 +105,14 @@ DB_SSL_CA_PATH=""
 uv sync
 ```
 
-6. Start the chat server:
+6. Import data into database:
 
 ```bash
-streamlit run src/ui.py
+python -m src.data.data_loader
+```
+
+7. Start the chat server:
+
+```bash
+streamlit run src/frontend/ui.py
 ```

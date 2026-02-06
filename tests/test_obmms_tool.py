@@ -1,13 +1,16 @@
 import unittest
-from obmms import ObMMSTool
-import logging
 
-logger = logging.getLogger(__name__)
+from src.common import get_config
+from src.common.logger import get_logger
+from src.tools import QueryTool
 
-class ObMMSToolTest(unittest.TestCase):
+logger = get_logger(__name__)
+
+
+class QueryToolTest(unittest.TestCase):
     def test_basic(self):
-        obm_tool = ObMMSTool(
-            table_name="obmms_demo",
+        obm_tool = QueryTool(
+            table_name=get_config().default_table_name,
             topk=20,
             # echo=True,
         )
