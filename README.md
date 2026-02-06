@@ -128,6 +128,7 @@ vim .env
 Key configurations:
 - Set `REUSE_CURRENT_DB=false` to automatically start a Docker database
 - Set `DB_STORE=seekdb` or `DB_STORE=oceanbase` to choose database type
+- Set `DB_PASSWORD` as your database password
 - Configure `DASHSCOPE_API_KEY` for model service
 - Configure `AMAP_API_KEY` for map service
 
