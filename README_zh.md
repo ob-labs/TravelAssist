@@ -55,6 +55,7 @@ vim .env # 设置你的 DASHSCOPE_API_KEY 和 AMAP_API_KEY。
 关键配置, 更多详情, 可直接阅读 .env 文件, 每个配置项的注释说明：
 - 设置 `REUSE_CURRENT_DB=false` 以自动启动 Docker 数据库, 如果已经搭建了 OceanBase 集群, 此处可设置为true
 - 设置 `DB_STORE=seekdb` 或 `DB_STORE=oceanbase` 选择数据库类型
+- 设置 `DB_PASSWORD` 为实际的数据库密码
 - 配置模型服务的 `DASHSCOPE_API_KEY`,  阿里云百炼平台 LLM API 密钥
 - 配置地图服务的 `AMAP_API_KEY`,  高德开放平台, API key
 
