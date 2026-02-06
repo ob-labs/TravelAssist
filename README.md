@@ -2,13 +2,13 @@
 
 [中文版](./README_zh.md)
 
-[ui](docs/images/ui.jpg)
+![ui](docs/images/ui.jpg)
 
 ## Concept Introduction
 
 Multi-Model Fusion: Multi-model fusion is an important direction of OceanBase's integrated product philosophy. In this context, multi-model fusion mainly refers to multi-model data hybrid retrieval technology. OceanBase supports hybrid queries of vector data, spatial data, document data, scalar data, and other types. Based on the support of multiple indexes such as vector index, spatial index, and full-text index, it provides higher-performance hybrid retrieval capabilities.
 
-[arch.jpg](docs/images/arch.jpg)
+![arch.jpg](docs/images/arch.jpg)
 
 ## Obtain LLM API Key
 
@@ -18,10 +18,10 @@ Note: Activating Alibaba Cloud Bailian Large Model Service requires you to jump 
 
 Register an [Alibaba Cloud Bailian account](https://bailian.console.aliyun.com/), activate the model service, and obtain an API key.
 
-[activate-models](docs/images/activate-models.png)
-[confirm-to-activate-models](docs/images/confirm-to-activate-models.png)
-[bailian1](docs/images/bailian1.jpg)
-[bailian2](docs/images/bailian2.png)
+![activate-models](docs/images/activate-models.png)
+![confirm-to-activate-models](docs/images/confirm-to-activate-models.png)
+![bailian1](docs/images/bailian1.jpg)
+![bailian2](docs/images/bailian2.png)
 
 ## Obtain Geographic Service API Key
 
@@ -31,12 +31,12 @@ Note: Activating Amap Geographic Service requires you to jump to a third-party p
 
 Register on Amap Open Platform and obtain a [Basic LBS Service](https://lbs.amap.com/upgrade#price) API key.
 
-[gaode1](docs/images/gaode1.jpg)
-[gaode2](docs/images/gaode2.jpg)
-[gaode3](docs/images/gaode3.jpg)
-[gaode4](docs/images/gaode4.jpg)
-[gaode5](docs/images/gaode5.jpg)
-[gaode6](docs/images/gaode6.png)
+![gaode1](docs/images/gaode1.jpg)
+![gaode2](docs/images/gaode2.jpg)
+![gaode3](docs/images/gaode3.jpg)
+![gaode4](docs/images/gaode4.jpg)
+![gaode5](docs/images/gaode5.jpg)
+![gaode6](docs/images/gaode6.png)
 
 ## Download Public Dataset
 
@@ -46,7 +46,7 @@ Download the [China City Attraction Details Dataset from Kaggle](https://www.kag
 
 Apply for a [free OceanBase cloud instance](https://www.oceanbase.com/free-trial) to get an experience cluster.
 
-[obcloud1](docs/images/obcloud1.jpg)
+![obcloud1](docs/images/obcloud1.jpg)
 
 ## Build Your Travel Assistant
 
@@ -82,8 +82,8 @@ make start
 
 Open http://localhost:8501, upload and load the China City Attraction Details dataset downloaded earlier.
 
-[upload](docs/images/upload.jpg)
-[load](docs/images/load.jpg)
+![upload](docs/images/upload.jpg)
+![load](docs/images/load.jpg)
 
 ## Quick Start (Docker Compose)
 
