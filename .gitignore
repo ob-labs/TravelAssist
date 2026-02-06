@@ -167,6 +167,8 @@ Desktop.ini
 # Project-specific
 citydata/
 citydata.zip
+data/
+
 __MACOSX/
 log/
 logs/*.log
@@ -197,3 +199,4 @@ secret.json
 # macOS
 .AppleDouble
 .LSOverride
+uv.lock

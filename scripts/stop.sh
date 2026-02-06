@@ -10,7 +10,7 @@ pkill -f "streamlit run" || true
 
 # Stop any Python processes related to this project
 echo "Stopping Python processes..."
-pkill -f "src/ui.py" || true
-pkill -f "src/api.py" || true
+pkill -f "src/frontend/ui.py" || true
+pkill -f "src/backend/api.py" || true
 
 echo "All processes stopped."

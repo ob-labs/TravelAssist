@@ -17,6 +17,10 @@ find . -type f -name "*.pyo" -delete 2>/dev/null || true
 find . -type f -name "*.pyd" -delete 2>/dev/null || true
 find . -type f -name "*$py.class" -delete 2>/dev/null || true
 
+# Remove hidden .*.py files in src and tests directories
+echo "Removing hidden .*.py files..."
+find src tests -type f -name ".*.py" -delete 2>/dev/null || true
+
 # Remove .venv directory
 if [ -d "$PROJECT_ROOT/.venv" ]; then
     echo "Removing .venv directory..."

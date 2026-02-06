@@ -1,9 +1,9 @@
 import json
 import requests
 from typing import Optional
-from obmms import Response
+from src.agents import WorkflowResponse as Response
 
-url = "http://localhost:8000/obmms/chat"
+url = "http://localhost:8000/chat"
 messages = []
 departure: Optional[str] = None
 distance: Optional[str] = None

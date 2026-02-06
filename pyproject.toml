@@ -1,24 +1,29 @@
 [project]
-name = "obmms"
-version = "0.1.0"
-description = "A demo for OceanBase multi-model search"
+name = "travel_assist"
+version = "0.2.0"
+description = "Travel Assist demo for OceanBase multi-model search"
 authors = [
-    {name = "shanhaikang.shk", email = "shanhaikang.shk@oceanbase.com"}
+    {name = "OceanBase OpenSource Team", email = "open_oceanbase@oceanbase.com"}
 ]
 license = {text = "Apache-2.0"}
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
-    "dashscope>=1.20.12",
-    "pydantic>=2.9.2",
-    "pytest>=8.3.3",
-    "pandas>=2.2.3",
-    "pyobvector==0.1.18",
-    "tqdm>=4.66.6",
-    "streamlit>=1.40.0",
-    "folium>=0.18.0",
-    "streamlit-folium>=0.23.1",
-    "python-dotenv>=0.9.9",
+    "dashscope>=1.25.9",
+    "pydantic>=2.12.5",
+    "pytest>=9.0.2",
+    "pandas>=2.0.0,<3.0.0",
+    "langchain-oceanbase>=0.3.2",
+    "pyseekdb>=1.1.0",
+    "pyobvector>=0.2.23",
+    "langgraph>=1.0.7",
+    "tqdm>=4.67.1",
+    "streamlit>=1.53.1",
+    "folium>=0.20.0",
+    "streamlit-folium>=0.26.1",
+    "python-dotenv>=1.2.1",
+    "fastapi>=0.115.0",
+    "uvicorn>=0.32.0",
 ]
 
 [tool.uv]
@@ -28,6 +33,17 @@ package = true
 name = "tsinghua"
 url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
 default = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/agents", "src/common", "src/data", "src/llm", "src/prompt", "src/tools"]
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
 
 [build-system]
 requires = ["hatchling"]
