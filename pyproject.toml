@@ -21,7 +21,7 @@ dependencies = [
     "streamlit>=1.53.1",
     "folium>=0.20.0",
     "streamlit-folium>=0.26.1",
-    "python-dotenv>=1.2.1",
+    "python-dotenv>=1.2.2",
     "fastapi>=0.115.0",
     "uvicorn>=0.32.0",
 ]
