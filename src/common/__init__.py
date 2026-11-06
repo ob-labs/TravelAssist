@@ -38,6 +38,12 @@ from .text import (
     format_numbered_list,
     replace_folded_vectors,
 )
+from .validation import (
+    MAX_SCORE,
+    MIN_SCORE,
+    coerce_score,
+    validate_extracted_info,
+)
 
 __all__ = [
     # Logger
@@ -78,6 +84,11 @@ __all__ = [
     "extract_json_from_response",
     "replace_folded_vectors",
     "format_numbered_list",
+    # Validation utilities
+    "MIN_SCORE",
+    "MAX_SCORE",
+    "coerce_score",
+    "validate_extracted_info",
     # Async utilities
     "run_blocking_in_executor",
 ]

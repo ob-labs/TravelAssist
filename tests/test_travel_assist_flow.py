@@ -85,6 +85,25 @@ class TestStateHelpers(unittest.TestCase):
         updates = update_user_state(state, {FIELD_SCORE: 80})
         self.assertEqual(updates["score"], 85)
 
+    def test_update_user_state_invalid_score_ignored(self):
+        """Test invalid score values are dropped instead of stored."""
+        state: TravelGraphState = {
+            "user_content": "test",
+            "chat_history": [],
+            "departure": None,
+            "distance": None,
+            "score": 85,
+            "season": None,
+            "is_complete": False,
+            "need_reset": False,
+            "success": True,
+        }
+
+        for value in ("90 OR 1=1", 101, -1):
+            with self.subTest(value=value):
+                updates = update_user_state(state, {FIELD_SCORE: value})
+                self.assertNotIn("score", updates)
+
     def test_update_user_state_season_concat(self):
         """Test season update uses concat strategy."""
         state: TravelGraphState = {

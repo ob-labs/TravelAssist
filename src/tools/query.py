@@ -15,6 +15,7 @@ from ..common import (
     FIELD_DISTANCE,
     FIELD_SCORE,
     FIELD_SEASON,
+    coerce_score,
     create_db_client,
     geocode,
     parse_distance,
@@ -114,25 +115,32 @@ class QueryTool(Tool):
         table: Table,
         departure_coords: tuple,
         distance_meters: float,
-        score: int,
+        score: Any,
         season_mask: int,
     ) -> List:
         """
         Build the WHERE clause for the search query.
 
+        Filter values are bound as SQL parameters through column
+        expressions; none of them is interpolated into a SQL string.
+
         Args:
             table: SQLAlchemy Table object.
             departure_coords: (latitude, longitude) tuple.
             distance_meters: Search radius in meters.
-            score: Minimum score filter.
+            score: Minimum score filter, raw value from extracted user info.
             season_mask: Season bitmask filter.
 
         Returns:
             List of WHERE clause conditions.
+
+        Raises:
+            ValueError: If the score filter is not a valid score value.
         """
         return [
             and_(
-                text(f"score >= {score} AND season & {season_mask} = {season_mask}"),
+                table.c["score"] >= coerce_score(score),
+                (table.c["season"].op("&")(season_mask)) == season_mask,
                 st_dwithin(
                     table.c["address"],
                     ST_GeomFromText(departure_coords, 4326),
