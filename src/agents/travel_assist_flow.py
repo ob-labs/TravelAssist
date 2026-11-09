@@ -18,6 +18,7 @@ from ..common import (
     FIELD_NAME_MAP,
     FIELD_SCORE,
     FIELD_SEASON,
+    coerce_score,
     geocode,
     replace_folded_vectors,
 )
@@ -107,7 +108,7 @@ def update_user_state(
 
     Implements smart merging:
     - departure and distance: direct replacement
-    - score: keep maximum value
+    - score: validated, then keep maximum value
     - season: concatenate strings
 
     Args:
@@ -126,12 +127,18 @@ def update_user_state(
         updates["distance"] = extracted[FIELD_DISTANCE]
 
     if extracted.get(FIELD_SCORE) is not None:
-        current_score = state.get("score")
-        new_score = extracted[FIELD_SCORE]
-        if current_score is None:
-            updates["score"] = new_score
+        try:
+            new_score = coerce_score(extracted[FIELD_SCORE])
+        except ValueError:
+            logger.warning(
+                "Ignoring invalid score value: %r", extracted[FIELD_SCORE]
+            )
         else:
-            updates["score"] = max(current_score, new_score)
+            current_score = state.get("score")
+            if current_score is None:
+                updates["score"] = new_score
+            else:
+                updates["score"] = max(current_score, new_score)
 
     if extracted.get(FIELD_SEASON) is not None:
         current_season = state.get("season")

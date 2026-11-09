@@ -7,7 +7,7 @@ including destination, distance, score requirements, and season preferences.
 
 from typing import Any, Dict, Optional
 
-from ..common import extract_json_from_response
+from ..common import extract_json_from_response, validate_extracted_info
 from ..common.config import get_config
 from ..common.logger import get_logger
 from ..llm import TongyiLLM, TongyiLLMConfig
@@ -52,10 +52,11 @@ class ExtractAgent(Agent):
             response: The raw LLM response.
 
         Returns:
-            Extracted information as a dictionary.
+            Extracted information as a dictionary, restricted to the known
+            fields with validated types.
 
         Raises:
-            ValueError: If response parsing fails.
+            ValueError: If response parsing or field validation fails.
         """
         if response.status_code != 200:
             raise ValueError(
@@ -66,7 +67,7 @@ class ExtractAgent(Agent):
         response_text = str(response.output.text)
         logger.debug(f"Extract agent raw response: {response_text}")
 
-        return extract_json_from_response(response_text)
+        return validate_extracted_info(extract_json_from_response(response_text))
 
     def chat(self, user_content: str, **kwargs) -> Dict[str, Any]:
         """
